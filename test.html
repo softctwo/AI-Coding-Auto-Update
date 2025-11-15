@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test { background: #f0f0f0; padding: 20px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Electron App Test</h1>
+    <div class="test">
+        <h2>测试页面</h2>
+        <p>如果看到这个页面，说明基本的HTML渲染正常。</p>
+        <p>当前时间: <span id="time"></span></p>
+    </div>
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString();
+        console.log('Test page loaded successfully');
+
+        // 检查electronAPI是否可用
+        if (window.electronAPI) {
+            console.log('✓ electronAPI is available');
+            document.body.innerHTML += '<div class="test"><h3>✓ electronAPI Available</h3><p>IPC通信正常</p></div>';
+        } else {
+            console.log('✗ electronAPI is NOT available');
+            document.body.innerHTML += '<div class="test"><h3>✗ electronAPI Not Available</h3><p>IPC通信可能有问题</p></div>';
+        }
+    </script>
+</body>
+</html>

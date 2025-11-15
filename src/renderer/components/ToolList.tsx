@@ -14,6 +14,7 @@ const ToolList: React.FC<ToolListProps> = ({
   onSelectionChange,
   onRefresh,
 }) => {
+  const [copiedTool, setCopiedTool] = React.useState<string | null>(null);
   const handleToggleSelection = (toolName: string) => {
     const newSelection = new Set(selectedTools);
     if (newSelection.has(toolName)) {
@@ -84,6 +85,60 @@ const ToolList: React.FC<ToolListProps> = ({
     }
   };
 
+  const generateInstallCommand = async (tool: ToolInfo): Promise<string> => {
+    try {
+      const definitions: ToolDefinition[] = await window.electronAPI.getToolDefinitions();
+      const def = definitions.find((d: ToolDefinition) => d.name === tool.name);
+
+      if (!def) return '';
+
+      // For not-installed tools, prefer npm, then pip, then brew
+      if (tool.status === 'not-installed') {
+        if (def.installMethods?.npm) {
+          return `npm install -g ${def.installMethods.npm}`;
+        } else if (def.installMethods?.pip) {
+          return `pip install ${def.installMethods.pip}`;
+        } else if (def.installMethods?.brew) {
+          return `brew install ${def.installMethods.brew}`;
+        }
+      } else if (tool.isOutdated) {
+        // For update commands
+        if (tool.installMethod === 'npm' && def.installMethods?.npm) {
+          return `npm update -g ${def.installMethods.npm}`;
+        } else if (tool.installMethod === 'pip' && def.installMethods?.pip) {
+          return `pip install --upgrade ${def.installMethods.pip}`;
+        } else if (tool.installMethod === 'brew' && def.installMethods?.brew) {
+          return `brew upgrade ${def.installMethods.brew}`;
+        }
+      }
+
+      return '';
+    } catch (error) {
+      console.error('Error generating install command:', error);
+      return '';
+    }
+  };
+
+  const handleCopyCommand = async (tool: ToolInfo) => {
+    const command = await generateInstallCommand(tool);
+    if (!command) {
+      alert('No command available for this tool');
+      return;
+    }
+
+    try {
+      // Use the modern clipboard API
+      await navigator.clipboard.writeText(command);
+      // Show success feedback
+      setCopiedTool(tool.name);
+      // Reset after 2 seconds
+      setTimeout(() => setCopiedTool(null), 2000);
+    } catch (error) {
+      console.error('Failed to copy command:', error);
+      alert('Failed to copy command to clipboard');
+    }
+  };
+
   return (
     <div className="tool-list-container">
       {tools.some(t => t.isOutdated) && (
@@ -103,6 +158,7 @@ const ToolList: React.FC<ToolListProps> = ({
             <th>Latest Version</th>
             <th>Status</th>
             <th>Install Path</th>
+            <th>Install Command</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -132,6 +188,19 @@ const ToolList: React.FC<ToolListProps> = ({
               <td>{tool.latestVersion || '-'}</td>
               <td>{getStatusBadge(tool)}</td>
               <td className="path">{tool.installPath || '-'}</td>
+              <td className="command-cell">
+                {(tool.status === 'not-installed' || tool.isOutdated) ? (
+                  <button
+                    onClick={() => handleCopyCommand(tool)}
+                    className={`small command-button ${copiedTool === tool.name ? 'copied' : ''}`}
+                    title="Copy install command to clipboard"
+                  >
+                    {copiedTool === tool.name ? '✅ Copied!' : '📋 Copy Command'}
+                  </button>
+                ) : (
+                  <span>-</span>
+                )}
+              </td>
               <td>
                 {tool.status === 'not-installed' ? (
                   <button onClick={() => handleInstall(tool)} className="small">

@@ -1,5 +1,4 @@
 import { Octokit } from '@octokit/rest';
-import fetch from 'node-fetch';
 import * as semver from 'semver';
 import { VersionInfo, ToolDefinition } from '../../shared/types';
 
@@ -7,14 +6,19 @@ import { VersionInfo, ToolDefinition } from '../../shared/types';
  * Version Service - Queries latest versions from various sources
  */
 export class VersionService {
-  private octokit: Octokit;
+  private octokit: Octokit | null = null;
   private cache: Map<string, { version: VersionInfo; timestamp: number }> = new Map();
   private readonly CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
   constructor(githubToken?: string) {
-    this.octokit = new Octokit({
-      auth: githubToken,
-    });
+    try {
+      this.octokit = new Octokit({
+        auth: githubToken,
+      });
+    } catch (error) {
+      console.error('Failed to initialize Octokit:', error);
+      this.octokit = null;
+    }
   }
 
   /**
@@ -69,7 +73,7 @@ export class VersionService {
    * Get version from GitHub Releases
    */
   private async getGitHubVersion(definition: ToolDefinition): Promise<VersionInfo | null> {
-    if (!definition.installMethods.github) {
+    if (!definition.installMethods.github || !this.octokit) {
       return null;
     }
 
@@ -115,7 +119,9 @@ export class VersionService {
    */
   private async getNpmVersion(packageName: string): Promise<VersionInfo | null> {
     try {
-      const response = await fetch(`https://registry.npmjs.org/${packageName}`);
+      const fetchModule = await import('node-fetch');
+      const fetchFn = fetchModule.default || (fetchModule as any);
+      const response = await fetchFn(`https://registry.npmjs.org/${packageName}`);
       if (!response.ok) {
         return null;
       }
@@ -144,7 +150,9 @@ export class VersionService {
    */
   private async getPyPiVersion(packageName: string): Promise<VersionInfo | null> {
     try {
-      const response = await fetch(`https://pypi.org/pypi/${packageName}/json`);
+      const fetchModule = await import('node-fetch');
+      const fetchFn = fetchModule.default || (fetchModule as any);
+      const response = await fetchFn(`https://pypi.org/pypi/${packageName}/json`);
       if (!response.ok) {
         return null;
       }
@@ -166,7 +174,9 @@ export class VersionService {
    */
   private async getBrewVersion(formulaName: string): Promise<VersionInfo | null> {
     try {
-      const response = await fetch(
+      const fetchModule = await import('node-fetch');
+      const fetchFn = fetchModule.default || (fetchModule as any);
+      const response = await fetchFn(
         `https://formulae.brew.sh/api/formula/${formulaName}.json`
       );
       if (!response.ok) {

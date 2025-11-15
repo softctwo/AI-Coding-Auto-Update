@@ -1,38 +1,48 @@
-import { contextBridge, ipcRenderer } from 'electron';
+import { ipcRenderer } from 'electron';
 import { ToolInfo, UpdateResult, BatchUpdateResult, AppConfig, ToolDefinition } from '../shared/types';
 
 /**
  * Preload script - Exposes safe IPC methods to renderer
+ * For development with contextIsolation disabled, we expose directly to window
  */
-contextBridge.exposeInMainWorld('electronAPI', {
-  // Tool operations
-  scanTools: (): Promise<ToolInfo[]> => ipcRenderer.invoke('scan-tools'),
 
-  checkVersions: (tools: ToolInfo[]): Promise<ToolInfo[]> =>
-    ipcRenderer.invoke('check-versions', tools),
+// For development with contextIsolation disabled
+declare global {
+  var window: any;
+}
 
-  updateTool: (tool: ToolInfo): Promise<UpdateResult> =>
-    ipcRenderer.invoke('update-tool', tool),
+// Check if we're in a browser context
+if (typeof globalThis !== 'undefined' && globalThis.window) {
+  globalThis.window.electronAPI = {
+    // Tool operations
+    scanTools: (): Promise<ToolInfo[]> => ipcRenderer.invoke('scan-tools'),
 
-  batchUpdate: (tools: ToolInfo[]): Promise<BatchUpdateResult> =>
-    ipcRenderer.invoke('batch-update', tools),
+    checkVersions: (tools: ToolInfo[]): Promise<ToolInfo[]> =>
+      ipcRenderer.invoke('check-versions', tools),
 
-  installTool: (toolName: string, installMethod: string, packageName: string): Promise<UpdateResult> =>
-    ipcRenderer.invoke('install-tool', toolName, installMethod, packageName),
+    updateTool: (tool: ToolInfo): Promise<UpdateResult> =>
+      ipcRenderer.invoke('update-tool', tool),
 
-  // Configuration
-  getConfig: (): Promise<AppConfig> => ipcRenderer.invoke('get-config'),
+    batchUpdate: (tools: ToolInfo[]): Promise<BatchUpdateResult> =>
+      ipcRenderer.invoke('batch-update', tools),
 
-  setConfig: (config: Partial<AppConfig>): Promise<void> =>
-    ipcRenderer.invoke('set-config', config),
+    installTool: (toolName: string, installMethod: string, packageName: string): Promise<UpdateResult> =>
+      ipcRenderer.invoke('install-tool', toolName, installMethod, packageName),
 
-  // Tool definitions
-  getToolDefinitions: (): Promise<ToolDefinition[]> =>
-    ipcRenderer.invoke('get-tool-definitions'),
+    // Configuration
+    getConfig: (): Promise<AppConfig> => ipcRenderer.invoke('get-config'),
 
-  // Cache
-  clearCache: (): Promise<void> => ipcRenderer.invoke('clear-cache'),
-});
+    setConfig: (config: Partial<AppConfig>): Promise<void> =>
+      ipcRenderer.invoke('set-config', config),
+
+    // Tool definitions
+    getToolDefinitions: (): Promise<ToolDefinition[]> =>
+      ipcRenderer.invoke('get-tool-definitions'),
+
+    // Cache
+    clearCache: (): Promise<void> => ipcRenderer.invoke('clear-cache'),
+  };
+}
 
 // Type declaration for TypeScript
 declare global {
