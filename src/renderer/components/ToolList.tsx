@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToolInfo } from '../../shared/types';
+import { ToolInfo, ToolDefinition } from '../../shared/types';
 
 interface ToolListProps {
   tools: ToolInfo[];
@@ -42,7 +42,7 @@ const ToolList: React.FC<ToolListProps> = ({
   const handleInstall = async (tool: ToolInfo) => {
     // Determine install method and package name
     const definitions = await window.electronAPI.getToolDefinitions();
-    const def = definitions.find(d => d.name === tool.name);
+    const def = definitions.find((d: ToolDefinition) => d.name === tool.name);
 
     if (!def) return;
 
