@@ -1,235 +1,141 @@
-# AI Coding Tools Manager (ACTM)
+# AI Coding Tools Manager (ACTM) | AI 编程工具管理器
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-blue)](https://github.com/softctwo/AI-Coding-Auto-Update)
 [![Electron](https://img.shields.io/badge/Electron-28.0-9feaf9?logo=electron)](https://www.electronjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue?logo=typescript)](https://www.typescriptlang.org/)
 
-AI Coding 自动检测最新版本，一键更新
+## 🌟 功能特点 | Features
 
-A cross-platform desktop application to automatically detect, manage, and update AI coding tools.
+### ✨ 新功能 | New Feature: **复制安装命令 | Copy Install Command**
+- **智能命令生成 | Smart Command Generation**: 根据工具状态和安装方式自动生成安装命令
+- **一键复制 | One-Click Copy**: 点击按钮即可复制安装命令到剪贴板
+- **多种安装方式 | Multiple Install Methods**: 支持 npm、pip、brew 等常见安装方式
+- **复制反馈 | Copy Feedback**: 复制成功后显示视觉反馈，提升用户体验
 
-## 🌟 主要功能
+### 🔧 核心功能 | Core Features
+- **自动检测 | Auto Detection**: 扫描系统中已安装的 AI 编程工具 | Scans your system for installed AI coding tools
+- **版本检查 | Version Checking**: 比较已安装版本与最新发布版本 | Compares installed versions with latest releases
+- **一键更新 | One-Click Update**: 单击即可更新工具 | Update tools with a single click
+- **批量操作 | Batch Operations**: 同时更新多个工具 | Update multiple tools at once
+- **跨平台支持 | Cross-Platform**: 支持 macOS、Linux 和 Windows | Available for macOS, Linux, and Windows
 
-### ✨ 新功能：复制安装命令
-- **智能命令生成**：根据工具状态和安装方式自动生成安装命令
-- **一键复制**：点击按钮即可复制安装命令到剪贴板
-- **多种安装方式**：支持 npm、pip、brew 等常见安装方式
-- **复制反馈**：复制成功后显示视觉反馈，提升用户体验
+## 📖 快速开始 | Quick Start
 
-### 🔧 核心功能
-- **自动检测**：扫描系统中已安装的 AI 编程工具
-- **版本检查**：比较已安装版本与最新发布版本
-- **一键更新**：单击即可更新工具
-- **批量操作**：同时更新多个工具
-- **跨平台支持**：支持 macOS、Linux 和 Windows
+### 安装 | Installation
+1. **下载 | Download**: 从 [Releases](https://github.com/softctwo/AI-Coding-Auto-Update/releases) 页面获取适合您平台的版本
+2. **安装 | Install**: 按照平台特定的安装说明进行安装
+3. **启动 | Launch**: 打开应用程序
+4. **扫描 | Scan**: 点击"Scan Tools"检测已安装的工具
+5. **更新 | Update**: 一键更新过时的工具
 
-## 📖 使用说明
+### 使用复制安装命令功能 | Using Copy Install Command
 
-### ✨ 新功能：复制安装命令
-**对于未安装的工具：**
-1. 找到需要安装的工具，查看"Install Command"列
+**对于未安装的工具 | For uninstalled tools:**
+1. 在工具列表中找到"Install Command"列
 2. 点击"📋 Copy Command"按钮复制安装命令
 3. 在终端中粘贴并执行命令进行手动安装
 
-**对于需要更新的工具：**
+**对于需要更新的工具 | For tools needing updates:**
 1. 找到标记为"Outdated"的工具
 2. 点击"📋 Copy Command"按钮复制更新命令
 3. 在终端中执行命令进行手动更新
 
-### 🔧 基础使用
+## 🚀 安装方式选择指南 | Installation Method Guide
 
-**首次启动：**
-1. 打开 AI Coding Tools Manager
-2. 点击 **"Scan Tools"** 扫描系统中已安装的 AI 编程工具
-3. 应用将显示所有检测到的工具及其当前版本
+| 场景 | 推荐使用 |
+|------|----------|
+| 网络稳定，熟悉工具 | 自动"Install"/"Update"按钮 |
+| 网络不稳定，需要调试 | 复制命令手动安装 |
+| 学习安装过程 | 复制命令手动安装 |
+| 需要排查安装问题 | 复制命令手动安装 |
 
-**检查更新：**
-1. 扫描完成后，点击 **"Check Updates"** 获取最新版本
-2. 有可用更新的工具将标记为"Outdated"
-3. 在列表中查看可用的更新
+## 💻 支持的平台 | Supported Platforms
 
-**更新工具：**
+- **macOS**: Intel (x64) 和 Apple Silicon (arm64) - DMG 安装程序
+- **Linux**: x64 和 arm64 - AppImage、DEB、RPM 格式
+- **Windows**: x64 和 ia32 - NSIS 安装程序、便携版本
 
-**单个工具更新：**
-- 点击任何过时工具旁边的 **"Update"** 按钮
+## 🔧 开发 | Development
 
-**批量更新：**
-- 使用复选框选择多个工具
-- 点击 **"Update Selected"** 一次性更新所有选中的工具
+### 环境要求 | Prerequisites
+- Node.js 20+
+- npm 或 yarn
 
-### ⚙️ 配置
+### 快速开始 | Quick Start
+```bash
+# 克隆仓库 | Clone repository
+git clone https://github.com/softctwo/AI-Coding-Auto-Update.git
+cd AI-Coding-Auto-Update
 
-访问设置以：
-- 配置 GitHub API 令牌以获得更高的速率限制
-- 设置启动时自动扫描
-- 配置更新通知
-- 自定义工具检测路径
+# 安装依赖 | Install dependencies
+npm install
 
-## 📊 功能对比
+# 开发模式 | Development mode
+npm run dev
+```
 
-| 功能 | 自动安装 | 复制命令手动安装 |
-|------|----------|------------------|
-| 便利性 | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| 可控性 | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| 调试友好 | ⭐⭐ | ⭐⭐⭐⭐⭐ |
-| 失败恢复 | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| 学习价值 | ⭐⭐ | ⭐⭐⭐⭐⭐ |
+### 构建 | Build
+```bash
+# 构建应用 | Build application
+npm run build
 
-**推荐使用场景：**
-- **自动安装**：适合熟悉工具且网络稳定的用户
-- **复制命令**：适合想要学习安装过程、调试问题或网络不稳定的用户
+# 打包当前平台 | Package for current platform
+npm run package
 
-## ❓ 常见问题
+# 打包所有平台 | Package for all platforms
+npm run package:all
+```
+
+## 🔍 支持的 AI 工具 | Supported AI Tools
+
+| 工具 | 类型 | 安装方式 | 平台 |
+|------|------|----------|------|
+| Cursor | IDE | 直接下载 | 全平台 |
+| Continue | VSCode 扩展 | npm/VSCode | 全平台 |
+| Cline | CLI 工具 | npm | 全平台 |
+| Windsurf | IDE | 直接下载 | 全平台 |
+| Aider | CLI 工具 | pip/pipx | 全平台 |
+
+更多工具支持详见 [tool-definitions.ts](src/shared/tool-definitions.ts)
+
+## 📋 常见问题 | FAQ
 
 ### 💾 复制安装命令功能如何使用？
-
-**对于新用户：**
 1. 在工具列表中找到"Install Command"列
 2. 点击"📋 Copy Command"按钮
 3. 命令会自动复制到剪贴板
 4. 打开终端，粘贴并执行命令
 
-**复制成功后：**
-- 按钮会显示"✅ Copied!"状态
-- 2秒后自动恢复原状
-- 如果复制失败，会有错误提示
-
 ### 🔍 ACTM 如何检测已安装的工具？
-
-ACTM 扫描各平台的常见安装目录和系统路径：
+ACTM 扫描各平台的常见安装目录：
 - **macOS**: `/Applications`, `~/Applications`, `/usr/local/bin`
-- **Linux**: `/usr/bin`, `/usr/local/bin`, `~/.local/bin`, `~/bin`
-- **Windows**: `C:\Program Files`, `C:\Program Files (x86)`, `%LOCALAPPDATA%`
-
-### 🚀 如何选择安装方式？
-
-**推荐选择：**
-- **网络稳定用户**: 使用自动"Install"/"Update"按钮
-- **网络不稳定用户**: 使用"📋 Copy Command"复制命令手动安装
-- **学习目的**: 使用复制命令了解安装过程
-- **调试问题**: 使用复制命令便于排查安装错误
-
-### 🔧 支持哪些 AI 编程工具？
-
-目前支持的工具包括：
-- Cursor
-- Continue
-- Cline
-- Windsurf
-- Aider
-- 更多工具（详见 [tool-definitions.ts](src/shared/tool-definitions.ts)）
+- **Linux**: `/usr/bin`, `/usr/local/bin`, `~/.local/bin`
+- **Windows**: `C:\Program Files`, `%LOCALAPPDATA%`
 
 ### 🔑 是否需要 GitHub 令牌？
-
-GitHub 令牌是可选的，但推荐使用：
-- **无令牌**: 每小时限制 60 次 API 请求
-- **有令牌**: 每小时限制 5,000 次 API 请求
-
-添加令牌方法：
-1. 前往 GitHub 设置 > 开发者设置 > 个人访问令牌
-2. 生成新令牌（公共仓库无需特殊权限）
-3. 在 ACTM 设置中添加令牌
+可选但推荐。无令牌：60次/小时，有令牌：5,000次/小时。
 
 ### 🔄 更新是如何执行的？
+使用各工具的原生包管理器：
+- **npm/yarn**: Node.js 工具
+- **pip**: Python 工具
+- **Homebrew**: macOS 工具
+- **直接下载**: 安装程序工具
 
-ACTM 使用各工具的原生包管理器和安装方法：
-- **npm/yarn**: 用于基于 Node.js 的工具
-- **pip**: 用于基于 Python 的工具
-- **Homebrew**: 用于 macOS 工具
-- **直接下载**: 用于有安装程序的工具
+## 📝 许可证 | License
 
-### 🔒 我的数据安全吗？
+MIT License - 详见 [LICENSE](LICENSE) 文件
 
-是的！ACTM：
-- 仅读取工具版本信息
-- 在本地机器上存储首选项
-- 不收集或传输个人数据
-- 所有更新操作都使用官方工具仓库
+## 🤝 贡献 | Contributing
 
-## FAQ
-
-### How does ACTM detect installed tools?
-
-ACTM scans common installation directories and system paths for each platform:
-- **macOS**: `/Applications`, `~/Applications`, `/usr/local/bin`
-- **Linux**: `/usr/bin`, `/usr/local/bin`, `~/.local/bin`, `~/bin`
-- **Windows**: `C:\Program Files`, `C:\Program Files (x86)`, `%LOCALAPPDATA%`
-
-### Which AI coding tools are supported?
-
-Currently supported tools include:
-- Cursor
-- Continue
-- Cline
-- Windsurf
-- Aider
-- And more (see full list in [tool-definitions.ts](src/shared/tool-definitions.ts))
-
-New tools can be added by contributing to the tool definitions.
-
-### Do I need a GitHub token?
-
-A GitHub token is optional but recommended. Without it, you're limited to 60 API requests per hour. With a token, you get 5,000 requests per hour.
-
-To add a token:
-1. Go to GitHub Settings > Developer settings > Personal access tokens
-2. Generate a new token (no special permissions needed for public repositories)
-3. Add it in ACTM Settings
-
-### How are updates performed?
-
-ACTM uses the native package managers and installation methods for each tool:
-- **npm/yarn**: For Node.js-based tools
-- **pip**: For Python-based tools
-- **Homebrew**: For macOS tools
-- **Direct downloads**: For tools with installers
-
-### Is my data safe?
-
-Yes! ACTM:
-- Only reads tool version information
-- Stores preferences locally on your machine
-- Does not collect or transmit personal data
-- All update operations use official tool repositories
-
-### Can I build for specific platforms only?
-
-Yes! Use these commands:
-```bash
-npm run package:mac      # macOS only
-npm run package:linux    # Linux only
-npm run package:win      # Windows only
-```
-
-### The app won't open on macOS - "App is damaged"
-
-This happens because the app isn't code-signed. To fix:
-```bash
-xattr -cr "/Applications/AI Coding Tools Manager.app"
-```
-
-Or right-click the app, select "Open", and confirm.
-
-## Support
-
-For issues and questions:
-- GitHub Issues: [Report a bug](https://github.com/softctwo/AI-Coding-Auto-Update/issues)
-- Discussions: [Ask questions](https://github.com/softctwo/AI-Coding-Auto-Update/discussions)
-
-## Roadmap
-
-- [ ] Auto-update functionality for ACTM itself
-- [ ] Custom tool definitions
-- [ ] Backup and restore tool configurations
-- [ ] Plugin system for extending functionality
-- [ ] Multiple language support
+欢迎提交 Issue 和 Pull Request！参见 [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
 ## 🎯 项目总结
 
-AI Coding Tools Manager (ACTM) 是专为开发者设计的 AI 编程工具管理器，通过智能检测、版本比较和便捷的更新机制，帮助用户保持开发环境的最新状态。
+AI Coding Tools Manager 专为开发者设计，通过智能检测、版本比较和便捷更新，帮助用户保持开发环境最新状态。
 
 **核心价值：**
 - 🚀 节省手动检查和更新时间
@@ -237,11 +143,10 @@ AI Coding Tools Manager (ACTM) 是专为开发者设计的 AI 编程工具管理
 - 📊 一目了然的工具状态管理
 - 🔒 安全可靠的更新机制
 
-**最新亮点：**
-✨ **复制安装命令功能** - 解决用户反馈的安装问题，提供更灵活的手动安装选择
-
-Made with ❤️ by the AI Coding Tools Manager Team
+**最新亮点：** ✨ **复制安装命令功能** - 解决安装问题，提供灵活的手动安装选择
 
 ---
+
+Made with ❤️ by the AI Coding Tools Manager Team
 
 **中文支持** | **跨平台** | **开源免费** | **持续更新**
