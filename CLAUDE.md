@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
+所有响应必须用中文
 ## 项目概述
 
 AI Coding Tools Manager (ACTM) 是一个基于 Electron + React 的跨平台桌面应用,用于自动检测、管理和更新本机安装的 AI 编程工具(如 Claude Code、Goose、Copilot CLI 等)。
