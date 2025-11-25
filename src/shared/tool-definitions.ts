@@ -39,22 +39,18 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     versionFlag: '--version',
     versionRegex: /(\d+\.\d+\.\d+)/,
     installMethods: {
-      npm: 'openai-codex-cli',
-      pip: 'codex-cli',
+      npm: '@openai/codex',
     },
+    homepage: 'https://github.com/openai/codex',
   },
   {
     name: 'qwen',
-    displayName: 'Qwen CLI',
+    displayName: 'Qwen Code',
     command: 'qwen',
     versionFlag: '-v',
     versionRegex: /(\d+\.\d+\.\d+)/,
     installMethods: {
-      pip: 'qwen-cli',
-      github: {
-        owner: 'QwenLM',
-        repo: 'Qwen',
-      },
+      npm: '@qwen-code/qwen-code',
     },
     homepage: 'https://qwenlm.github.io/',
   },
@@ -65,8 +61,9 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     versionFlag: '--version',
     versionRegex: /(\d+\.\d+\.\d+)/,
     installMethods: {
-      npm: 'iflow-cli',
+      npm: '@iflow-ai/iflow-cli',
     },
+    homepage: 'https://iflow.ai/',
   },
   {
     name: 'crush',
@@ -75,12 +72,9 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     versionFlag: '--version',
     versionRegex: /(\d+\.\d+\.\d+)/,
     installMethods: {
-      npm: 'crush-cli',
-      github: {
-        owner: 'crush-ai',
-        repo: 'crush',
-      },
+      npm: '@charmland/crush',
     },
+    homepage: 'https://github.com/charmland/crush',
   },
   {
     name: 'opencode',
@@ -89,9 +83,9 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     versionFlag: '--version',
     versionRegex: /(\d+\.\d+\.\d+)/,
     installMethods: {
-      npm: 'opencode-cli',
-      pip: 'opencode',
+      npm: 'open-code-cli',
     },
+    homepage: 'https://github.com/opencode-ai/opencode',
   },
   {
     name: 'droid',
@@ -160,10 +154,6 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     versionRegex: /(\d+\.\d+\.\d+)/,
     installMethods: {
       pip: 'kimi-cli',
-      github: {
-        owner: 'MoonshotAI',
-        repo: 'kimi-cli',
-      },
     },
     homepage: 'https://www.moonshot.cn/',
   },
